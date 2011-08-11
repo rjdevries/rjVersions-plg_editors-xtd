@@ -117,9 +117,14 @@ class plgButtonVersions extends JPlugin
 
         
 //show the number of versions available
-        $db =& JFactory::getDBO();
-        $sql = "SELECT count(id) FROM #__versions WHERE content_id = $id";
-        $db->setQuery( $sql );
+        $db = JFactory::getDbo();
+        $query	= $db->getQuery(true);
+	$query->select('count(id)');
+	$query->from('#__versions');
+        $query->where('content_id = '.$id);
+        $query->order('#__versions.id');
+        $db->setQuery($query);
+
         $count = (int)$db->loadResult();
         if($count > 0){
                 $linktext =  JText::_('PLG_EDITORS-XTD_BUTTON') . " ($count)";
