@@ -16,6 +16,7 @@ jimport( 'joomla.user.helper' );
 class plgButtonVersions extends JPlugin
 {
     var $params;
+    var $id;
     /**
      * Constructor
      *
@@ -97,7 +98,7 @@ class plgButtonVersions extends JPlugin
         JHtml::_('behavior.modal');
 
 // Create the link to the component
-        if($id <= 0){
+        if(isset($id) <= 0){
             $id = JRequest::getVar('id',0);
         }
         $id = (int)$id;
@@ -121,8 +122,8 @@ class plgButtonVersions extends JPlugin
         $query	= $db->getQuery(true);
 	$query->select('count(id)');
 	$query->from('#__versions');
-        $query->where('content_id = '.$id);
-        $query->order('#__versions.id');
+        $query->where('id = '.$id);
+        $query->order('#__versions.vid');
         $db->setQuery($query);
 
         $count = (int)$db->loadResult();
