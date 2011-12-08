@@ -1,8 +1,12 @@
 <?php
-/**
- * @version		$Id: Versions.php
- */
-
+/*------------------------------------------------------------------------
+# plg_editors_xtd - rjVersions plugin
+# ------------------------------------------------------------------------
+# author    Ronald J. de Vries
+# @license - http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+# Websites: http://www.rjdev.nl
+# Technical Support:  Forum - http://www.rjdev.nl
+-------------------------------------------------------------------------*/
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
@@ -40,8 +44,9 @@ class plgButtonVersions extends JPlugin
 */
     function onDisplay($name) {
 	
-// Don't show button on frontend
-        if(JFactory::getApplication()->isAdmin() != 1) { return 0; } ;
+        // Show botton only in the back-end article editor
+        $app = JFactory::getApplication();
+        if($app->isAdmin() != 1 || $app->scope != 'com_content') { return 0; } ;
 
          /*
          * Javascript to insert the content
